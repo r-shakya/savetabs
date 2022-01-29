@@ -23,10 +23,17 @@
 </head>
 
 <body>
+
     <div class="container">
-        <div class="row mb-3">
+        <div class="row my-4 text-center">
+            <h1>Projects</h1>
+        </div>
+    </div>
+
+    <div class="container my-3 card card-body">
+        <h2>select and open</h2>
+        <div class="row my-3">
             <div class="col-6">
-                <!-- <input type="text" class="form-control" id="projectId"> -->
                 <select class="form-select" aria-label="Default select example" id="fillProjectsName">
                     <option value="1">One</option>
                     <option value="2">Two</option>
@@ -34,39 +41,15 @@
                 </select>
             </div>
             <div class="col-6">
-                <button id="resetTotal" class="btn btn-primary">click</button>
+                <button id="addProject" class="btn btn-primary">open</button>
+                <button id="deleteProject" class="btn btn-danger">delete</button>
             </div>
         </div>
+    </div>
+
+    <div class="container my-3 card card-body">
         <div class="row" id="fillProjects">
-            <div class="col-auto card">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Tabs</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="fillTabs">
-                        <tr>
-                            <td>Mark</td>
-                            <td>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">add</label>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="row mb-3">
-                    <div class="col-6">
-                        <input type="text" class="form-control" id="tabUrl" placeholder="Enter URL">
-                    </div>
-                    <div class="col-6">
-                        <input id="addTab" type="submit" class="btn btn-primary" value="add">
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 </body>

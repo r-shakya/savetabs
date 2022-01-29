@@ -1,4 +1,6 @@
 #project{
-    width: 300px;
+    width: 310px;
+    height: 400px;
+    overflow-y: scroll;
     background-color: whitesmoke;
 }
