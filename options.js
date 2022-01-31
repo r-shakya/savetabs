@@ -38,13 +38,13 @@ $(function () {
                 </thead>
                 <tbody id="projectBody">
                     `
-                project.projectData.forEach(function (tab, index) {
+                project.projectData.forEach(function (tab, i) {
                     text += `<tr>
                             <td>${tab.title}</td>
                             <td>
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="${index}" checked>
-                                    <label class="form-check-label" for="${index}">add</label>
+                                    <input type="checkbox" class="form-check-input" id="${project.projectName+"-"+i}" checked>
+                                    <label class="form-check-label" for="${project.projectName+"-"+i}">add</label>
                                 </div>
                             </td>
                         </tr>`
@@ -57,7 +57,7 @@ $(function () {
                     <input type="text" class="form-control" id="tabUrl" placeholder="Enter URL">
                 </div>
                 <div class="col-6">
-                    <button id="addTab" class="btn btn-primary">add</button>
+                    <button id="addTab${index}" class="btn btn-primary">add</button>
                 </div>
             </div>
         </div>`
@@ -106,24 +106,20 @@ $(function () {
         });
     });
 
-    // $('#addTab').click(function () {
+    // $('#addTab').click(function (a) {
     //     // var projectId = $('#fillProjectsName').val();
     //     // projectId = parseInt(projectId);
 
-    //     $.ajax({
-    //         url: "http://textance.herokuapp.com/title/https://github.com/r-shakya/tool-development/blob/master/GIP/templates/index.html",
-    //         complete: function (data) {
+    //     console.log(a);
 
-    //             var notifOptions = {
-    //                 type: 'basic',
-    //                 iconUrl: 'icon48.png',
-    //                 title: data.responseText + " deleted!",
-    //                 message: data.responseText + " deleted successfully!"
-    //             }
+    //     // var notifOptions = {
+    //     //     type: 'basic',
+    //     //     iconUrl: 'icon48.png',
+    //     //     title: data.responseText + " deleted!",
+    //     //     message: data.responseText + " deleted successfully!"
+    //     // }
 
-    //             chrome.notifications.create('limitNotification', notifOptions);
-    //         }
-    //     });
+    //     //chrome.notifications.create('limitNotification', notifOptions);
 
     //     // chrome.storage.sync.get('savetabs', function (data) {
 
