@@ -3,7 +3,7 @@ $(function () {
     var tabsData = [];
 
     // show all projects
-    chrome.storage.sync.get('savetabs', function (data) {
+    chrome.storage.local.get('savetabs', function (data) {
 
         var projectsData = [];
 
@@ -93,7 +93,7 @@ $(function () {
         var projectId = $('#fillProjectsName').val();
         projectId = parseInt(projectId);
 
-        chrome.storage.sync.get('savetabs', function (data) {
+        chrome.storage.local.get('savetabs', function (data) {
 
             if (data.savetabs) {
 
@@ -101,7 +101,7 @@ $(function () {
 
                 var spliced = jsonData.splice(projectId, 1);
 
-                chrome.storage.sync.set({ 'savetabs': JSON.stringify(jsonData) }, function () {
+                chrome.storage.local.set({ 'savetabs': JSON.stringify(jsonData) }, function () {
 
                     var notifOptions = {
                         type: 'basic',
@@ -117,8 +117,8 @@ $(function () {
         });
     });
 
-    //iterate through all project and implement all functionality - add-tab, open
-    chrome.storage.sync.get('savetabs', function (data) {
+    //iterate through all project and implement all functionality - add-tab,
+    chrome.storage.local.get('savetabs', function (data) {
 
         if (data.savetabs) {
 
@@ -154,7 +154,7 @@ $(function () {
                                 const nr = /<title>(.*?)<\/title>/g.exec(matches[0]);
                                 titletobeAdded = nr[1];
 
-                                chrome.storage.sync.get('savetabs', function (data1) {
+                                chrome.storage.local.get('savetabs', function (data1) {
 
                                     if (data1.savetabs) {
                         
@@ -166,7 +166,7 @@ $(function () {
                                             }
                                         });
                         
-                                        chrome.storage.sync.set({ 'savetabs': JSON.stringify(jsonData1) }, function () {
+                                        chrome.storage.local.set({ 'savetabs': JSON.stringify(jsonData1) }, function () {
                         
                                             var notifOptions = {
                                                 type: 'basic',

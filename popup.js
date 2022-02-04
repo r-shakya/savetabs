@@ -21,7 +21,7 @@ $(function () {
 
     var projects = [];
 
-    chrome.storage.sync.get('savetabs', function (data) {
+    chrome.storage.local.get('savetabs', function (data) {
 
         if (data.savetabs) {
 
@@ -93,7 +93,7 @@ $(function () {
             }
         });
 
-        chrome.storage.sync.set({ 'savetabs': JSON.stringify(ProjectsRemained) }, function () {
+        chrome.storage.local.set({ 'savetabs': JSON.stringify(ProjectsRemained) }, function () {
 
             var notifOptions = {
                 type: 'basic',
@@ -123,7 +123,7 @@ $(function () {
 
         var projectName = $('#projectName').val();
 
-        chrome.storage.sync.get(['savetabs'], function (data) {
+        chrome.storage.local.get(['savetabs'], function (data) {
 
             var projectsData = [];
 
@@ -139,7 +139,7 @@ $(function () {
                 var jsonData = JSON.parse(data.savetabs);
                 var projectsData1 = projectsData.concat(jsonData);
 
-                chrome.storage.sync.set({ 'savetabs': JSON.stringify(projectsData1) }, function () {
+                chrome.storage.local.set({ 'savetabs': JSON.stringify(projectsData1) }, function () {
 
                     var error = chrome.runtime.lastError;
 
@@ -161,7 +161,7 @@ $(function () {
                 });
             }
             else {
-                chrome.storage.sync.set({ 'savetabs': JSON.stringify(projectsData) }, function () {
+                chrome.storage.local.set({ 'savetabs': JSON.stringify(projectsData) }, function () {
 
                     var notifOptions = {
                         type: 'basic',
