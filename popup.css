@@ -2,3 +2,13 @@ body{
     width: 300px;
     background-color: whitesmoke;
 }
+
+.projectBody{
+    height: 400px;
+    overflow-y: scroll;
+}
+
+.submit-buttons{
+    margin-right: 10px;
+    float: right;
+}

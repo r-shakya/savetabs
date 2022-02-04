@@ -61,11 +61,11 @@ $(function () {
             </div>
             <div class="row mb-3" id="projectBottom">
                 <hr>
-                <div class="col-6">
+                <div class="col-8">
                     <input type="text" class="form-control" id="tabUrl" name="tabUrl" placeholder="Enter URL">
                 </div>
-                <div class="col-6">
-                    <input type="submit" class="btn btn-primary" name="role" value="add" />
+                <div class="col-4">
+                    <input type="submit" class="btn btn-primary submit-buttons" name="role" value="add" />
                 </div>
             </div>
             </form>
