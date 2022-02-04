@@ -1,6 +1,20 @@
 #project{
     width: 310px;
+    background-color: whitesmoke;
+}
+
+.projectBody{
     height: 400px;
     overflow-y: scroll;
-    background-color: whitesmoke;
+}
+
+.project-name {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.submit-buttons{
+    margin-right: 10px;
+    float: right;
 }

@@ -62,12 +62,12 @@ $(function () {
 
         projectToBeOpened.forEach(function (project, index) {
 
-            chrome.windows.create({}, function(wdata){
+            chrome.windows.create({}, function (wdata) {
 
                 project.projectData.forEach(function (tab, index1) {
 
-                    chrome.tabs.create({windowId: wdata.id, url: tab.url, index: 0},function(data){
-    
+                    chrome.tabs.create({ windowId: wdata.id, url: tab.url, index: 0 }, function (data) {
+
                     });
 
                 });
@@ -88,7 +88,7 @@ $(function () {
             if (!checkbox.checked) {
                 ProjectsRemained.push(project);
             }
-            else{
+            else {
                 text += project.projectName + " ";
             }
         });
@@ -108,7 +108,7 @@ $(function () {
 
     });
 
-    
+
 
     $('#saveProject').click(function () {
 
@@ -134,25 +134,33 @@ $(function () {
 
             projectsData.push(addData);
 
-            if(data.savetabs){
+            if (data.savetabs) {
 
                 var jsonData = JSON.parse(data.savetabs);
                 var projectsData1 = projectsData.concat(jsonData);
-                
+
                 chrome.storage.sync.set({ 'savetabs': JSON.stringify(projectsData1) }, function () {
 
-                    var notifOptions = {
-                        type: 'basic',
-                        iconUrl: 'icon48.png',
-                        title: projectName + " added!",
-                        message: projectName + " saved successfully!"
+                    var error = chrome.runtime.lastError;
+
+                    if (error) {
+                        alert(error.message);
                     }
+
+                    else{
+                        var notifOptions = {
+                            type: 'basic',
+                            iconUrl: 'icon48.png',
+                            title: projectName + " added!",
+                            message: projectName + " saved successfully!"
+                        }
     
-                    chrome.notifications.create('limitNotification', notifOptions);
-    
+                        chrome.notifications.create('limitNotification', notifOptions);
+                    }
+
                 });
             }
-            else{
+            else {
                 chrome.storage.sync.set({ 'savetabs': JSON.stringify(projectsData) }, function () {
 
                     var notifOptions = {
@@ -161,12 +169,12 @@ $(function () {
                         title: projectName + " added!",
                         message: projectName + " saved successfully!"
                     }
-    
+
                     chrome.notifications.create('limitNotification', notifOptions);
-    
+
                 });
             }
-            
+
         });
 
     });
