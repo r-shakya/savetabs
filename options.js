@@ -2,6 +2,7 @@ $(function () {
 
     var tabsData = [];
 
+    // show all projects
     chrome.storage.sync.get('savetabs', function (data) {
 
         var projectsData = [];
@@ -69,7 +70,8 @@ $(function () {
         }
     });
 
-    $('#addProject').click(function () {
+    // open project
+    $('#openProject').click(function () {
         var projectId = $('#fillProjectsName').val();
         projectId = parseInt(projectId);
 
@@ -78,6 +80,7 @@ $(function () {
         });
     });
 
+    // delete project
     $('#deleteProject').click(function () {
         var projectId = $('#fillProjectsName').val();
         projectId = parseInt(projectId);
