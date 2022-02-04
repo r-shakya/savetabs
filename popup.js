@@ -17,7 +17,6 @@ $(function () {
             </tr>`
         });
         document.getElementById('fillTabs').innerHTML = text;
-        //console.log("tabsData", tabsData);
     });
 
     var projects = [];
@@ -107,26 +106,6 @@ $(function () {
 
         });
 
-        // var highIndex = -1;
-
-        // chrome.windows.getAll(function(data){
-        //     data.forEach(function(w, i){
-        //         if(w.id > highIndex){
-        //             highIndex = w.id;
-        //         }
-        //     })
-        //     console.log(data);
-        //     console.log("high index: ", highIndex);
-        // });
-          
-
-
-        // var projectId = $('#fillProjectsName').val();
-        // projectId = parseInt(projectId);
-
-        // tabsData[projectId].projectData.forEach(function (tab, index) {
-        //     window.open(tab.url);
-        // });
     });
 
     
@@ -144,8 +123,6 @@ $(function () {
 
         var projectName = $('#projectName').val();
 
-        //console.log("dataToBesaved", dataToBeSaved);
-
         chrome.storage.sync.get(['savetabs'], function (data) {
 
             var projectsData = [];
@@ -157,21 +134,10 @@ $(function () {
 
             projectsData.push(addData);
 
-            //console.log('data', data);
-            //console.log("savetabs", data.savetabs);
-            //console.log(typeof data.savetabs);
-
             if(data.savetabs){
-                //console.log("data is there", data.savetabs);
 
                 var jsonData = JSON.parse(data.savetabs);
-                //console.log("json data: ", jsonData);
-                //console.log("projectsData: ", projectsData);
-                //console.log("add tab in jason data", jsonData.push(addData));
                 var projectsData1 = projectsData.concat(jsonData);
-                //.console.log("projects data after adding json data", projectsData1);
-                
-
                 
                 chrome.storage.sync.set({ 'savetabs': JSON.stringify(projectsData1) }, function () {
 
@@ -187,7 +153,6 @@ $(function () {
                 });
             }
             else{
-                console.log("no data availabel", data.savetabs);
                 chrome.storage.sync.set({ 'savetabs': JSON.stringify(projectsData) }, function () {
 
                     var notifOptions = {
@@ -201,9 +166,8 @@ $(function () {
     
                 });
             }
-
-            console.log("projectsData", projectsData);
-        })
+            
+        });
 
     });
 
