@@ -48,7 +48,7 @@ $(function () {
                             <td>${tab.title}</td>
                             <td>
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="${project.projectName + "-tab-" + i}" id="${project.projectName + "-tab-" + i}" checked>
+                                    <input type="checkbox" class="form-check-input" name="${i}" id="${project.projectName + "-tab-" + i}" checked>
                                     <label class="form-check-label" for="${project.projectName + "-tab-" + i}">add</label>
                                 </div>
                             </td>
@@ -61,11 +61,14 @@ $(function () {
             </div>
             <div class="row mb-3" id="projectBottom">
                 <hr>
-                <div class="col-8">
+                <div class="col-6">
                     <input type="text" class="form-control" id="tabUrl" name="tabUrl" placeholder="Enter URL">
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                     <input type="submit" class="btn btn-primary submit-buttons" name="role" value="add" />
+                </div>
+                <div class="col-3">
+                    <input type="submit" class="btn btn-success submit-buttons" name="role" value="save" />
                 </div>
             </div>
             </form>
@@ -157,26 +160,26 @@ $(function () {
                                 chrome.storage.local.get('savetabs', function (data1) {
 
                                     if (data1.savetabs) {
-                        
+
                                         var jsonData1 = JSON.parse(data1.savetabs);
-        
-                                        jsonData1.forEach(function(pro, id){
-                                            if(pro.projectName == project.projectName){
-                                                pro.projectData.push({title: titletobeAdded, url: urlToBeAdded});
+
+                                        jsonData1.forEach(function (pro, id) {
+                                            if (pro.projectName == project.projectName) {
+                                                pro.projectData.push({ title: titletobeAdded, url: urlToBeAdded });
                                             }
                                         });
-                        
+
                                         chrome.storage.local.set({ 'savetabs': JSON.stringify(jsonData1) }, function () {
-                        
+
                                             var notifOptions = {
                                                 type: 'basic',
                                                 iconUrl: 'icon48.png',
                                                 title: titletobeAdded + " added!",
                                                 message: titletobeAdded + " added successfully!"
                                             }
-                        
+
                                             chrome.notifications.create('limitNotification', notifOptions);
-                        
+
                                         });
                                     }
                                 });
@@ -185,14 +188,59 @@ $(function () {
                     }
                     else if (role == "open") {
 
-                        project.projectData.forEach(function (tab, index) {
-                            window.open(tab.url);
+                        var tabsToBeOpen = [];
+
+                        inputsData.forEach(function (obj, idx) {
+                            if (obj.name != "tabUrl") {
+                                tabsToBeOpen.push(parseInt(obj.name));
+                            }
                         });
 
-                        //console.log(project.projectName, role);
+                        tabsToBeOpen.forEach(function (val, idx1) {
+                            window.open(project.projectData[val].url);
+                        });
                     }
-                    else {
-                        console.log(project.projectName, role);
+                    else if (role == "save") {
+
+                        var tabsToBeSave = [];
+
+                        inputsData.forEach(function (obj, idx) {
+                            if (obj.name != "tabUrl") {
+                                var i = parseInt(obj.name);
+                                tabsToBeSave.push(project.projectData[i]);
+                            }
+                        });
+
+                        chrome.storage.local.get(['savetabs'], function (data) {
+
+                            if (data.savetabs) {
+
+                                var jsonData2 = JSON.parse(data.savetabs);
+                                jsonData2[index].projectData = tabsToBeSave;
+
+                                chrome.storage.local.set({ 'savetabs': JSON.stringify(jsonData2) }, function () {
+
+                                    var error = chrome.runtime.lastError;
+
+                                    if (error) {
+                                        alert(error.message);
+                                    }
+
+                                    else {
+                                        var notifOptions = {
+                                            type: 'basic',
+                                            iconUrl: 'icon48.png',
+                                            title: project.projectName + " changed!",
+                                            message: project.projectName + " tabs saved successfully!"
+                                        }
+
+                                        chrome.notifications.create('limitNotification', notifOptions);
+                                    }
+
+                                });
+                            }
+
+                        });
                     }
                 });
             });
