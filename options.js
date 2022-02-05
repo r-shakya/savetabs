@@ -47,10 +47,7 @@ $(function () {
                     text += `<tr>
                             <td class="tab-name">${tab.title}</td>
                             <td>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="${i}" id="${project.projectName + "-tab-" + i}" checked>
-                                    <label class="form-check-label" for="${project.projectName + "-tab-" + i}">add</label>
-                                </div>
+                                <input type="checkbox" class="form-check-input" name="${i}" id="${project.projectName + "-tab-" + i}" checked> add
                             </td>
                         </tr>`
                 });

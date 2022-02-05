@@ -9,10 +9,7 @@ $(function () {
             text += `<tr>
                 <td class="tab-name">${tab.title}</td>
                 <td>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="${index}" checked>
-                        <label class="form-check-label" for="${index}">add</label>
-                    </div>
+                    <input type="checkbox" class="form-check-input" id="${index}" checked> add
                 </td>
             </tr>`
         });
@@ -36,10 +33,7 @@ $(function () {
                 projectText += `<tr>
                 <td class="project-name">${project.projectName}</td>
                 <td>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="project-${index}">
-                        <label class="form-check-label" for="${index}">mark</label>
-                    </div>
+                    <input type="checkbox" class="form-check-input" id="project-${index}">
                 </td>
             </tr>`
 
