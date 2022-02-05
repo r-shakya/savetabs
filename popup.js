@@ -7,7 +7,7 @@ $(function () {
         tabs.forEach(function (tab, index) {
             tabsData.push({ title: tab.title, url: tab.url });
             text += `<tr>
-                <td>${tab.title}</td>
+                <td class="tab-name">${tab.title}</td>
                 <td>
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="${index}" checked>
@@ -34,7 +34,7 @@ $(function () {
             projects.forEach(function (project, index) {
 
                 projectText += `<tr>
-                <td>${project.projectName}</td>
+                <td class="project-name">${project.projectName}</td>
                 <td>
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="project-${index}">

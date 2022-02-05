@@ -45,7 +45,7 @@ $(function () {
                     `
                 project.projectData.forEach(function (tab, i) {
                     text += `<tr>
-                            <td>${tab.title}</td>
+                            <td class="tab-name">${tab.title}</td>
                             <td>
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" name="${i}" id="${project.projectName + "-tab-" + i}" checked>
@@ -86,9 +86,21 @@ $(function () {
         var projectId = $('#fillProjectsName').val();
         projectId = parseInt(projectId);
 
-        tabsData[projectId].projectData.forEach(function (tab, index) {
-            window.open(tab.url);
+        chrome.windows.create({}, function (wdata) {
+
+            tabsData[projectId].projectData.forEach(function (tab, index1) {
+
+                chrome.tabs.create({ windowId: wdata.id, url: tab.url, index: 0 }, function (data) {
+
+                });
+
+            });
+
         });
+
+        // tabsData[projectId].projectData.forEach(function (tab, index) {
+        //     window.open(tab.url);
+        // });
     });
 
     // delete project
@@ -192,13 +204,27 @@ $(function () {
 
                         inputsData.forEach(function (obj, idx) {
                             if (obj.name != "tabUrl") {
-                                tabsToBeOpen.push(parseInt(obj.name));
+                                var i = parseInt(obj.name);
+                                tabsToBeOpen.push(project.projectData[i]);
+                                //tabsToBeOpen.push(parseInt(obj.name));
                             }
                         });
 
-                        tabsToBeOpen.forEach(function (val, idx1) {
-                            window.open(project.projectData[val].url);
+                        chrome.windows.create({}, function (wdata) {
+
+                            tabsToBeOpen.forEach(function (tab, index1) {
+                
+                                chrome.tabs.create({ windowId: wdata.id, url: tab.url, index: 0 }, function (data) {
+                
+                                });
+                
+                            });
+                
                         });
+
+                        // tabsToBeOpen.forEach(function (val, idx1) {
+                        //     window.open(project.projectData[val].url);
+                        // });
                     }
                     else if (role == "save") {
 
