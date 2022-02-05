@@ -86,21 +86,26 @@ $(function () {
         var projectId = $('#fillProjectsName').val();
         projectId = parseInt(projectId);
 
-        chrome.windows.create({}, function (wdata) {
+        var w = $('#fillWindow').val();
 
-            tabsData[projectId].projectData.forEach(function (tab, index1) {
+        if (w == "1") {
+            chrome.windows.create({}, function (wdata) {
 
-                chrome.tabs.create({ windowId: wdata.id, url: tab.url, index: 0 }, function (data) {
+                tabsData[projectId].projectData.forEach(function (tab, index1) {
+
+                    chrome.tabs.create({ windowId: wdata.id, url: tab.url, index: 0 }, function (data) {
+
+                    });
 
                 });
 
             });
-
-        });
-
-        // tabsData[projectId].projectData.forEach(function (tab, index) {
-        //     window.open(tab.url);
-        // });
+        }
+        else {
+            tabsData[projectId].projectData.forEach(function (tab, index) {
+                window.open(tab.url);
+            });
+        }
     });
 
     // delete project
@@ -213,13 +218,13 @@ $(function () {
                         chrome.windows.create({}, function (wdata) {
 
                             tabsToBeOpen.forEach(function (tab, index1) {
-                
+
                                 chrome.tabs.create({ windowId: wdata.id, url: tab.url, index: 0 }, function (data) {
-                
+
                                 });
-                
+
                             });
-                
+
                         });
 
                         // tabsToBeOpen.forEach(function (val, idx1) {
