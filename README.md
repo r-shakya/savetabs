@@ -1,2 +1,2 @@
 # savetabs
-a chrome extension for saving all projects tab
+This extension save the tabs in your chrome browser for managing your projects!
