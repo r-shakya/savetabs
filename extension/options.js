@@ -42,15 +42,15 @@ $(function () {
                                         </thead>
                                         <tbody>
                                             `
-                                        project.projectData.forEach(function (tab, i) {
-                                            text += `<tr>
+                project.projectData.forEach(function (tab, i) {
+                    text += `<tr>
                                                         <td class="tab-name">${tab.title}</td>
                                                         <td>
                                                             <input type="checkbox" class="form-check-input" name="${i}" id="${project.projectName + "-tab-" + i}" checked> add
                                                         </td>
                                                     </tr>`
-                                        });
-                                text += `</tbody>
+                });
+                text += `</tbody>
                                     </table>
                                 </div>
                             </div>
@@ -268,5 +268,88 @@ $(function () {
             });
         }
     });
+
+
+    // export projects
+    $('#exportData').click(function () {
+
+        chrome.storage.local.get('savetabs', function (data) {
+
+            if (data.savetabs) {
+
+                var jsonData = JSON.parse(data.savetabs);
+                var exportName = "savetabs";
+
+                var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(jsonData));
+                var downloadAnchorNode = document.createElement('a');
+                downloadAnchorNode.setAttribute("href", dataStr);
+                downloadAnchorNode.setAttribute("download", exportName + ".json");
+                downloadAnchorNode.click();
+                downloadAnchorNode.remove();
+
+            }
+        });
+    });
+
+    // import projects
+    // $('#importData').click(function () {
+
+    // });
+
+    document.getElementById('upload').addEventListener('change', handleFileSelect, false);
+
+    function handleFileSelect(e) {
+
+        // FileList object
+        let files = e.target.files;
+
+        // use the 1st file from the list
+        let f = files[0];
+
+        // make file reader object
+        let reader = new FileReader();
+
+        // Closure to capture the file information.
+        reader.onload = (function (theFile) {
+            return function (e) {
+                var data = e.target.result;
+                var jsonData = JSON.parse(data);
+                
+                chrome.storage.local.get(['savetabs'], function (data) {
+
+                    if (data.savetabs) {
+
+                        var jsonData2 = JSON.parse(data.savetabs);
+                        var dataToBeSaved = jsonData2.concat(jsonData);
+
+                        chrome.storage.local.set({ 'savetabs': JSON.stringify(dataToBeSaved) }, function () {
+
+                            var error = chrome.runtime.lastError;
+
+                            if (error) {
+                                alert(error.message);
+                            }
+
+                            else {
+                                var notifOptions = {
+                                    type: 'basic',
+                                    iconUrl: 'icons/icon48.png',
+                                    title: f.name + " imported!",
+                                    message: "projects imported successfully!"
+                                }
+
+                                chrome.notifications.create('limitNotification', notifOptions);
+                            }
+
+                        });
+                    }
+
+                });
+            };
+        })(f);
+
+        // Read in the image file as a data URL.
+        reader.readAsText(f);
+    }
 
 });

@@ -54,12 +54,31 @@
                 <button id="deleteProject" class="btn btn-danger">delete</button>
             </div>
         </div>
+        <div class="row">
+            <div class="col-6">
+                <input id="upload" type=file   accept="text/json" name="files[]" size=30>
+            </div>
+            <div class="col-6">
+                <button type="button" id="importData" class="btn btn-secondary">Import</button>
+            </div>
+        </div>
     </div>
 
     <!-- show all projects -->
     <div class="container my-3 card card-body">
         <div class="row" id="fillProjects">
 
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row alert alert-warning" role="alert">
+            <div class="col-9">
+                Note: before removing this extension, if you want you can download, your data in json format, by clicking on Export button
+            </div>
+            <div class="col-3">
+                <button type="button" id="exportData" class="btn btn-secondary submit-buttons">Export</button>
+            </div>
         </div>
     </div>
 
