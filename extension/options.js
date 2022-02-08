@@ -122,7 +122,7 @@ $(function () {
 
                     var notifOptions = {
                         type: 'basic',
-                        iconUrl: 'icon48.png',
+                        iconUrl: 'icons/icon48.png',
                         title: spliced[0].projectName + " deleted!",
                         message: spliced[0].projectName + " deleted successfully!"
                     }
@@ -187,7 +187,7 @@ $(function () {
 
                                             var notifOptions = {
                                                 type: 'basic',
-                                                iconUrl: 'icon48.png',
+                                                iconUrl: 'icons/icon48.png',
                                                 title: titletobeAdded + " added!",
                                                 message: titletobeAdded + " added successfully!"
                                             }
@@ -257,7 +257,7 @@ $(function () {
                                     else {
                                         var notifOptions = {
                                             type: 'basic',
-                                            iconUrl: 'icon48.png',
+                                            iconUrl: 'icons/icon48.png',
                                             title: project.projectName + " changed!",
                                             message: project.projectName + " tabs saved successfully!"
                                         }

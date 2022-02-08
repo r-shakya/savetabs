@@ -91,7 +91,7 @@ $(function () {
 
             var notifOptions = {
                 type: 'basic',
-                iconUrl: 'icon48.png',
+                iconUrl: 'icons/icon48.png',
                 title: "deleted successfully!",
                 message: text + "deleted successfully!"
             }
@@ -144,7 +144,7 @@ $(function () {
                     else{
                         var notifOptions = {
                             type: 'basic',
-                            iconUrl: 'icon48.png',
+                            iconUrl: 'icons/icon48.png',
                             title: projectName + " added!",
                             message: projectName + " saved successfully!"
                         }
@@ -159,7 +159,7 @@ $(function () {
 
                     var notifOptions = {
                         type: 'basic',
-                        iconUrl: 'icon48.png',
+                        iconUrl: 'icons/icon48.png',
                         title: projectName + " added!",
                         message: projectName + " saved successfully!"
                     }
