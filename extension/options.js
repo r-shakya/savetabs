@@ -9,9 +9,9 @@ $(function () {
 
         if (data.savetabs) {
 
-            var jsonData = JSON.parse(data.savetabs);
+            var projectsData = JSON.parse(data.savetabs);
 
-            projectsData = jsonData;
+            //projectsData = jsonData;
 
             let text = "";
             let projectText = "";
@@ -21,55 +21,53 @@ $(function () {
 
                 projectText += `<option value="${index}">${project.projectName}</option>`
 
-                text += `
-                <div class="col-auto card mx-2 my-3" id="project">
-                <form id="${project.projectName}" action="" method="POST">
-                <div class="row mt-3">
-            <div class="col-6">
-                <h3 class="project-name">${project.projectName}</h3>
-            </div>
-            <div class="col-6">
-                <input type="submit" class="btn btn-primary submit-buttons" name="role" value="open" />
-            </div>
-        </div>
-        <div class="projectBody row">
-        <div class="col">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Tabs</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    `
-                project.projectData.forEach(function (tab, i) {
-                    text += `<tr>
-                            <td class="tab-name">${tab.title}</td>
-                            <td>
-                                <input type="checkbox" class="form-check-input" name="${i}" id="${project.projectName + "-tab-" + i}" checked> add
-                            </td>
-                        </tr>`
-                });
-                text += `
-                </tbody>
-            </table>
-            </div>
-            </div>
-            <div class="row mb-3" id="projectBottom">
-                <hr>
-                <div class="col-6">
-                    <input type="text" class="form-control" id="tabUrl" name="tabUrl" placeholder="Enter URL">
-                </div>
-                <div class="col-3">
-                    <input type="submit" class="btn btn-primary submit-buttons" name="role" value="add" />
-                </div>
-                <div class="col-3">
-                    <input type="submit" class="btn btn-success submit-buttons" name="role" value="save" />
-                </div>
-            </div>
-            </form>
-        </div>`
+                text += `<div class="col-auto card mx-2 my-3" id="project">
+                            <form id="${project.projectName}" action="" method="POST">
+                            <div class="row mt-3">
+                                <div class="col-6">
+                                    <h3 class="project-name">${project.projectName}</h3>
+                                </div>
+                                <div class="col-6">
+                                    <input type="submit" class="btn btn-primary submit-buttons" name="role" value="open" />
+                                </div>
+                            </div>
+                            <div class="projectBody row">
+                                <div class="col">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Tabs</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            `
+                                        project.projectData.forEach(function (tab, i) {
+                                            text += `<tr>
+                                                        <td class="tab-name">${tab.title}</td>
+                                                        <td>
+                                                            <input type="checkbox" class="form-check-input" name="${i}" id="${project.projectName + "-tab-" + i}" checked> add
+                                                        </td>
+                                                    </tr>`
+                                        });
+                                text += `</tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row mb-3" id="projectBottom">
+                                <hr>
+                                <div class="col-6">
+                                    <input type="text" class="form-control" id="tabUrl" name="tabUrl" placeholder="Enter URL">
+                                </div>
+                                <div class="col-3">
+                                    <input type="submit" class="btn btn-primary submit-buttons" name="role" value="add" />
+                                </div>
+                                <div class="col-3">
+                                    <input type="submit" class="btn btn-success submit-buttons" name="role" value="save" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>`
 
             });
 
@@ -208,7 +206,6 @@ $(function () {
                             if (obj.name != "tabUrl") {
                                 var i = parseInt(obj.name);
                                 tabsToBeOpen.push(project.projectData[i]);
-                                //tabsToBeOpen.push(parseInt(obj.name));
                             }
                         });
 
@@ -224,9 +221,6 @@ $(function () {
 
                         });
 
-                        // tabsToBeOpen.forEach(function (val, idx1) {
-                        //     window.open(project.projectData[val].url);
-                        // });
                     }
                     else if (role == "save") {
 

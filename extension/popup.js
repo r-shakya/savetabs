@@ -1,109 +1,28 @@
 $(function () {
 
-    var tabsData = [];
-    let text = "";
+    //saveproject tab functionality
 
+    var tabsData = [];
+
+    //get all tabs in current window
     chrome.tabs.query({ currentWindow: true }, function (tabs) {
+
+        let text = "";
+
         tabs.forEach(function (tab, index) {
             tabsData.push({ title: tab.title, url: tab.url });
             text += `<tr>
-                <td class="tab-name">${tab.title}</td>
-                <td>
-                    <input type="checkbox" class="form-check-input" id="${index}" checked> add
-                </td>
-            </tr>`
+                        <td class="tab-name">${tab.title}</td>
+                        <td>
+                            <input type="checkbox" class="form-check-input" id="${index}" checked> add
+                        </td>
+                    </tr>`
         });
         document.getElementById('fillTabs').innerHTML = text;
-    });
-
-    var projects = [];
-
-    chrome.storage.local.get('savetabs', function (data) {
-
-        if (data.savetabs) {
-
-            var jsonData = JSON.parse(data.savetabs);
-
-            projects = jsonData;
-
-            let projectText = "";
-
-            projects.forEach(function (project, index) {
-
-                projectText += `<tr>
-                <td class="project-name">${project.projectName}</td>
-                <td>
-                    <input type="checkbox" class="form-check-input" id="project-${index}">
-                </td>
-            </tr>`
-
-            });
-
-            document.getElementById('openTabs').innerHTML = projectText;
-        }
-    });
-
-    $('#openProject').click(function () {
-
-        var projectToBeOpened = [];
-
-        projects.forEach(function (project, index) {
-            var checkbox = document.getElementById("project-" + index);
-            if (checkbox.checked) {
-                projectToBeOpened.push(project);
-            }
-        });
-
-        projectToBeOpened.forEach(function (project, index) {
-
-            chrome.windows.create({}, function (wdata) {
-
-                project.projectData.forEach(function (tab, index1) {
-
-                    chrome.tabs.create({ windowId: wdata.id, url: tab.url, index: 0 }, function (data) {
-
-                    });
-
-                });
-
-            });
-
-        });
 
     });
 
-    $('#deleteProject').click(function () {
-
-        var ProjectsRemained = [];
-        let text = "";
-
-        projects.forEach(function (project, index) {
-            var checkbox = document.getElementById("project-" + index);
-            if (!checkbox.checked) {
-                ProjectsRemained.push(project);
-            }
-            else {
-                text += project.projectName + " ";
-            }
-        });
-
-        chrome.storage.local.set({ 'savetabs': JSON.stringify(ProjectsRemained) }, function () {
-
-            var notifOptions = {
-                type: 'basic',
-                iconUrl: 'icons/icon48.png',
-                title: "deleted successfully!",
-                message: text + "deleted successfully!"
-            }
-
-            chrome.notifications.create('limitNotification', notifOptions);
-
-        });
-
-    });
-
-
-
+    //save all tabs as a project
     $('#saveProject').click(function () {
 
         var dataToBeSaved = [];
@@ -168,6 +87,95 @@ $(function () {
 
                 });
             }
+
+        });
+
+    });
+
+    //openproject tab functionality
+
+    var projects = [];
+
+    //show all projects
+    chrome.storage.local.get('savetabs', function (data) {
+
+        if (data.savetabs) {
+
+            projects = JSON.parse(data.savetabs);
+
+            let projectText = "";
+
+            projects.forEach(function (project, index) {
+
+                projectText += `<tr>
+                                    <td class="project-name">${project.projectName}</td>
+                                    <td>
+                                        <input type="checkbox" class="form-check-input" id="project-${index}">
+                                    </td>
+                                </tr>`
+
+            });
+
+            document.getElementById('openTabs').innerHTML = projectText;
+        }
+    });
+
+    //open selected projects
+    $('#openProject').click(function () {
+
+        var projectToBeOpened = [];
+
+        projects.forEach(function (project, index) {
+            var checkbox = document.getElementById("project-" + index);
+            if (checkbox.checked) {
+                projectToBeOpened.push(project);
+            }
+        });
+
+        projectToBeOpened.forEach(function (project, index) {
+
+            chrome.windows.create({}, function (wdata) {
+
+                project.projectData.forEach(function (tab, index1) {
+
+                    chrome.tabs.create({ windowId: wdata.id, url: tab.url, index: 0 }, function (data) {
+
+                    });
+
+                });
+
+            });
+
+        });
+
+    });
+
+    //delete selected projects
+    $('#deleteProject').click(function () {
+
+        var ProjectsRemained = [];
+        let text = "";
+
+        projects.forEach(function (project, index) {
+            var checkbox = document.getElementById("project-" + index);
+            if (!checkbox.checked) {
+                ProjectsRemained.push(project);
+            }
+            else {
+                text += project.projectName + " ";
+            }
+        });
+
+        chrome.storage.local.set({ 'savetabs': JSON.stringify(ProjectsRemained) }, function () {
+
+            var notifOptions = {
+                type: 'basic',
+                iconUrl: 'icons/icon48.png',
+                title: "deleted successfully!",
+                message: text + "deleted successfully!"
+            }
+
+            chrome.notifications.create('limitNotification', notifOptions);
 
         });
 
