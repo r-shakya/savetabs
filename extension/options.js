@@ -11,8 +11,6 @@ $(function () {
 
             var projectsData = JSON.parse(data.savetabs);
 
-            //projectsData = jsonData;
-
             let text = "";
             let projectText = "";
 
@@ -43,14 +41,14 @@ $(function () {
                                         <tbody>
                                             `
                 project.projectData.forEach(function (tab, i) {
-                    text += `<tr>
+                                           text += `<tr>
                                                         <td class="tab-name">${tab.title}</td>
                                                         <td>
                                                             <input type="checkbox" class="form-check-input" name="${i}" id="${project.projectName + "-tab-" + i}" checked> add
                                                         </td>
                                                     </tr>`
                 });
-                text += `</tbody>
+                               text += `</tbody>
                                     </table>
                                 </div>
                             </div>
@@ -71,9 +69,21 @@ $(function () {
 
             });
 
-            document.getElementById('fillProjectsName').innerHTML = projectText;
+            if(projectText==""){
+                document.getElementById('fillProjectsName').innerHTML = '<option value="-1">No project Found</option>';
+                document.getElementById("exportWarning").style.display = "none";
+                document.getElementById("importBox").style.display = "block";
+            }
+            else{
+                document.getElementById('fillProjectsName').innerHTML = projectText;
+                document.getElementById("exportWarning").style.display = "block";
+                document.getElementById("importBox").style.display = "none";
+            }
+
             document.getElementById('fillProjects').innerHTML = text;
+
         }
+
     });
 
     // open project
@@ -292,9 +302,9 @@ $(function () {
     });
 
     // import projects
-    // $('#importData').click(function () {
-
-    // });
+    $('#importData').click(function () {
+        document.getElementById('upload').click();
+    });
 
     document.getElementById('upload').addEventListener('change', handleFileSelect, false);
 

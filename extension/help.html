@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save Tabs - help</title>
+
+    <!-- options css -->
+    <link rel="stylesheet" href="help.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="bootstrap-5.1.3-dist/css/bootstrap.min.css">
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+<body>
+
+    <!-- heading -->
+    <div class="container">
+        <div class="row my-4">
+            <div class="col text-center">
+                <h1>Save Tabs</h1>
+            </div>
+        </div>
+
+        <!-- tabs -->
+        <div class="row">
+            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                <!-- save project tab -->
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="saveproject-tab" data-bs-toggle="tab" data-bs-target="#saveproject"
+                        aria-controls="saveproject" aria-selected="true" href="#saveproject" roll="tab">Save
+                        Projects</a>
+                </li>
+                <!-- open project tab -->
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="openproject-tab" data-bs-toggle="tab" data-bs-target="#openproject"
+                        aria-controls="openproject" aria-selected="false" href="#openproject" roll="tab">Open
+                        Projects</a>
+                </li>
+                <!-- delete project tab -->
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="deleteproject-tab" data-bs-toggle="tab" data-bs-target="#deleteproject"
+                        aria-controls="deleteproject" aria-selected="false" href="#deleteproject" roll="tab">Delete
+                        Projects</a>
+                </li>
+                <!-- import data tab -->
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="importdata-tab" data-bs-toggle="tab" data-bs-target="#importdata"
+                        aria-controls="importdata" aria-selected="false" href="#importdata" roll="tab">Import Data</a>
+                </li>
+                <!-- export data tab -->
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="exportdata-tab" data-bs-toggle="tab" data-bs-target="#exportdata"
+                        aria-controls="exportdata" aria-selected="false" href="#exportdata" roll="tab">Export Data</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- projects body -->
+    <div class="container my-3 card card-body">
+        <!-- tabs data -->
+        <div class="row mx-2">
+            <div class="tab-content" id="myTabContent">
+                <!-- save project tab content -->
+                <div class="tab-pane fade show active" id="saveproject" role="tabpanel"
+                    aria-labelledby="saveproject-tab">
+                    <div class="row mt-2">
+                        <h6>1. open popup page, select the tabs you want to save, name your project and click on save
+                            button</h6>
+                    </div>
+                    <div class="row mt-2">
+                        <img src="screenshots/popup_save_project.jpeg" alt="">
+                    </div>
+                </div>
+                <!-- open project tab content -->
+                <div class="tab-pane fade" id="openproject" role="tabpanel" aria-labelledby="openproject-tab">
+
+                    <div class="row mt-2">
+                        <h6>1. open popup page, select the projects you want to open, and click on open button</h6>
+                    </div>
+                    <div class="row mt-2">
+                        <img src="screenshots/popup_open_projects.jpeg" alt="">
+                    </div>
+
+                    <div class="row mt-2">
+                        <h6>2. open options page, select the project you want to open, select the browser window (new or
+                            current) and click on open button</h6>
+                    </div>
+                    <div class="row mt-2">
+                        <img src="screenshots/options_open_project.jpeg" alt="">
+                    </div>
+
+                    <div class="row mt-2">
+                        <h6>3. open options page, choose tabs you want to open, available in every project container and
+                            click on open button</h6>
+                    </div>
+                    <div class="row mt-2">
+                        <img src="screenshots/options_page_open_project_tabs.jpeg" alt="">
+                    </div>
+
+                </div>
+                <!-- delete project tab content -->
+                <div class="tab-pane fade" id="deleteproject" role="tabpanel" aria-labelledby="deleteproject-tab">
+
+                    <div class="row mt-2">
+                        <h6>1. open popup page, select the projects you want to delete, and click on delete button</h6>
+                    </div>
+                    <div class="row mt-2">
+                        <img src="screenshots/popup_delete_projects.jpeg" alt="">
+                    </div>
+
+                    <div class="row mt-2">
+                        <h6>2. open options page, select the project you want to delete, and click on delete button</h6>
+                    </div>
+                    <div class="row mt-2">
+                        <img src="screenshots/options_delete_project.jpeg" alt="">
+                    </div>
+                </div>
+                <!-- import data tab content -->
+                <div class="tab-pane fade" id="importdata" role="tabpanel" aria-labelledby="importdata-tab">
+                    <div class="row mt-2">
+                        <h6>1. open options page, click on the choose file button on the top-left corner, select your
+                            json data file</h6>
+                    </div>
+                    <div class="row mt-2">
+                        <img src="screenshots/options_page_import_data.jpeg" alt="">
+                    </div>
+                </div>
+                <!-- export data tab content -->
+                <div class="tab-pane fade" id="exportdata" role="tabpanel" aria-labelledby="exportdata-tab">
+                    <div class="row mt-2">
+                        <h6>1. open options page, click on Export button on the bottom-right corner, you will get one
+                            file with name savetabs.json</h6>
+                    </div>
+                    <div class="row mt-2">
+                        <img src="screenshots/options_page_export_data.jpeg" alt="">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

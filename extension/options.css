@@ -26,3 +26,11 @@
     overflow: hidden !important;
     text-overflow: ellipsis;
 }
+
+#exportWarning{
+    display: none;
+}
+
+#importBox{
+    display: none;
+}
