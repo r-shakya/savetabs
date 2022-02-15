@@ -11,6 +11,8 @@ $(function () {
 
             var projectsData = JSON.parse(data.savetabs);
 
+            //console.log(projectsData);
+
             let text = "";
             let projectText = "";
 
@@ -20,7 +22,7 @@ $(function () {
                 projectText += `<option value="${index}">${project.projectName}</option>`
 
                 text += `<div class="col-auto card mx-2 my-3" id="project">
-                            <form id="${project.projectName}" action="" method="POST">
+                            <form id="project-${index}" action="" method="POST">
                             <div class="row mt-3">
                                 <div class="col-6">
                                     <h3 class="project-name">${project.projectName}</h3>
@@ -83,6 +85,9 @@ $(function () {
             document.getElementById('fillProjects').innerHTML = text;
 
         }
+        else{
+            document.getElementById("importBox").style.display = "block";
+        }
 
     });
 
@@ -137,6 +142,8 @@ $(function () {
 
                     chrome.notifications.create('limitNotification', notifOptions);
 
+                    window.location.reload();
+
                 });
             }
         });
@@ -151,7 +158,7 @@ $(function () {
 
             projectsData.forEach(function (project, index) {
 
-                $("#" + project.projectName).submit(function (e) {
+                $("#project-" + index).submit(function (e) {
 
                     e.preventDefault();
 
@@ -172,7 +179,7 @@ $(function () {
                             }
                         });
 
-                        chrome.tabs.create({ url: urlToBeAdded, index: 0 }, function (tabData) {
+                        chrome.tabs.create({ url: urlToBeAdded, index: 0, active: false }, function (tabData) {
                             chrome.tabs.onUpdated.addListener(function listener(tabId, info) {
                                 if (info.status === 'complete' && tabId === tabData.id) {
                                     chrome.tabs.query({ currentWindow: true }, function (tabs) {
@@ -204,7 +211,7 @@ $(function () {
                                                     chrome.notifications.create('limitNotification', notifOptions);
 
                                                     chrome.tabs.remove( tabData.id, function(){
-
+                                                        window.location.reload();
                                                     });
 
                                                 });
@@ -252,11 +259,11 @@ $(function () {
                             }
                         });
 
-                        chrome.storage.local.get(['savetabs'], function (data) {
+                        chrome.storage.local.get(['savetabs'], function (data2) {
 
-                            if (data.savetabs) {
+                            if (data2.savetabs) {
 
-                                var jsonData2 = JSON.parse(data.savetabs);
+                                var jsonData2 = JSON.parse(data2.savetabs);
                                 jsonData2[index].projectData = tabsToBeSave;
 
                                 chrome.storage.local.set({ 'savetabs': JSON.stringify(jsonData2) }, function () {
@@ -276,6 +283,8 @@ $(function () {
                                         }
 
                                         chrome.notifications.create('limitNotification', notifOptions);
+
+                                        window.location.reload();
                                     }
 
                                 });
@@ -331,15 +340,15 @@ $(function () {
         // Closure to capture the file information.
         reader.onload = (function (theFile) {
             return function (e) {
-                var data = e.target.result;
-                var jsonData = JSON.parse(data);
+                var data1 = e.target.result;
+                var jsonData1 = JSON.parse(data1);
 
-                chrome.storage.local.get(['savetabs'], function (data) {
+                chrome.storage.local.get(['savetabs'], function (data2) {
 
-                    if (data.savetabs) {
+                    if (data2.savetabs) {
 
-                        var jsonData2 = JSON.parse(data.savetabs);
-                        var dataToBeSaved = jsonData2.concat(jsonData);
+                        var jsonData2 = JSON.parse(data2.savetabs);
+                        var dataToBeSaved = jsonData2.concat(jsonData1);
 
                         chrome.storage.local.set({ 'savetabs': JSON.stringify(dataToBeSaved) }, function () {
 
@@ -362,6 +371,31 @@ $(function () {
 
                         });
                     }
+                    else{
+
+                        chrome.storage.local.set({ 'savetabs': JSON.stringify(jsonData1) }, function () {
+
+                            var error = chrome.runtime.lastError;
+
+                            if (error) {
+                                alert(error.message);
+                            }
+
+                            else {
+                                var notifOptions = {
+                                    type: 'basic',
+                                    iconUrl: 'icons/icon48.png',
+                                    title: f.name + " imported!",
+                                    message: "projects imported successfully!"
+                                }
+
+                                chrome.notifications.create('limitNotification', notifOptions);
+                            }
+
+                        });
+                    }
+
+                    window.location.reload();
 
                 });
             };

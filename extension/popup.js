@@ -1,7 +1,6 @@
 $(function () {
 
     //saveproject tab functionality
-
     var tabsData = [];
 
     //get all tabs in current window
@@ -87,6 +86,8 @@ $(function () {
 
                 });
             }
+
+            window.location.reload();
 
         });
 
@@ -176,6 +177,8 @@ $(function () {
             }
 
             chrome.notifications.create('limitNotification', notifOptions);
+
+            window.location.reload();
 
         });
 
