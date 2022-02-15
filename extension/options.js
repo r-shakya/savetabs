@@ -41,14 +41,14 @@ $(function () {
                                         <tbody>
                                             `
                 project.projectData.forEach(function (tab, i) {
-                                           text += `<tr>
-                                                        <td class="tab-name">${tab.title}</td>
-                                                        <td>
-                                                            <input type="checkbox" class="form-check-input" name="${i}" id="${project.projectName + "-tab-" + i}" checked> add
-                                                        </td>
-                                                    </tr>`
+                    text += `<tr>
+                                                    <td class="tab-name">${tab.title}</td>
+                                                    <td>
+                                                        <input type="checkbox" class="form-check-input" name="${i}" id="${project.projectName + "-tab-" + i}" checked> add
+                                                    </td>
+                                                </tr>`
                 });
-                               text += `</tbody>
+                text += `</tbody>
                                     </table>
                                 </div>
                             </div>
@@ -69,12 +69,12 @@ $(function () {
 
             });
 
-            if(projectText==""){
+            if (projectText == "") {
                 document.getElementById('fillProjectsName').innerHTML = '<option value="-1">No project Found</option>';
                 document.getElementById("exportWarning").style.display = "none";
                 document.getElementById("importBox").style.display = "block";
             }
-            else{
+            else {
                 document.getElementById('fillProjectsName').innerHTML = projectText;
                 document.getElementById("exportWarning").style.display = "block";
                 document.getElementById("importBox").style.display = "none";
@@ -172,41 +172,50 @@ $(function () {
                             }
                         });
 
-                        $.ajax({
-                            url: urlToBeAdded,
-                            complete: function (data) {
-                                var matches = data.responseText.match(/<title>(.*?)<\/title>/);
-                                const nr = /<title>(.*?)<\/title>/g.exec(matches[0]);
-                                titletobeAdded = nr[1];
+                        chrome.tabs.create({ url: urlToBeAdded, index: 0 }, function (tabData) {
+                            chrome.tabs.onUpdated.addListener(function listener(tabId, info) {
+                                if (info.status === 'complete' && tabId === tabData.id) {
+                                    chrome.tabs.query({ currentWindow: true }, function (tabs) {
+                                        titletobeAdded = tabs[0].title;
 
-                                chrome.storage.local.get('savetabs', function (data1) {
+                                        chrome.storage.local.get('savetabs', function (data1) {
 
-                                    if (data1.savetabs) {
+                                            if (data1.savetabs) {
 
-                                        var jsonData1 = JSON.parse(data1.savetabs);
+                                                var jsonData1 = JSON.parse(data1.savetabs);
 
-                                        jsonData1.forEach(function (pro, id) {
-                                            if (pro.projectName == project.projectName) {
-                                                pro.projectData.push({ title: titletobeAdded, url: urlToBeAdded });
+                                                //can be done in one line, if we have project index
+                                                jsonData1.forEach(function (pro, id) {
+                                                    if (pro.projectName == project.projectName) {
+                                                        pro.projectData.push({ title: titletobeAdded, url: urlToBeAdded });
+                                                    }
+                                                });
+
+                                                //save the updated data
+                                                chrome.storage.local.set({ 'savetabs': JSON.stringify(jsonData1) }, function () {
+
+                                                    var notifOptions = {
+                                                        type: 'basic',
+                                                        iconUrl: 'icons/icon48.png',
+                                                        title: titletobeAdded + " added!",
+                                                        message: titletobeAdded + " added successfully!"
+                                                    }
+
+                                                    chrome.notifications.create('limitNotification', notifOptions);
+
+                                                    chrome.tabs.remove( tabData.id, function(){
+
+                                                    });
+
+                                                });
                                             }
                                         });
+                                    });
 
-                                        chrome.storage.local.set({ 'savetabs': JSON.stringify(jsonData1) }, function () {
-
-                                            var notifOptions = {
-                                                type: 'basic',
-                                                iconUrl: 'icons/icon48.png',
-                                                title: titletobeAdded + " added!",
-                                                message: titletobeAdded + " added successfully!"
-                                            }
-
-                                            chrome.notifications.create('limitNotification', notifOptions);
-
-                                        });
-                                    }
-                                });
-                            }
+                                }
+                            });
                         });
+
                     }
                     else if (role == "open") {
 
@@ -324,7 +333,7 @@ $(function () {
             return function (e) {
                 var data = e.target.result;
                 var jsonData = JSON.parse(data);
-                
+
                 chrome.storage.local.get(['savetabs'], function (data) {
 
                     if (data.savetabs) {
