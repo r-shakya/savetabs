@@ -19,7 +19,13 @@ $(function () {
                         </tr>`
             }
         });
-        document.getElementById('fillTabs').innerHTML = text;
+
+        if(text){
+            document.getElementById('fillTabs').innerHTML = text;
+        }
+        else{
+            document.getElementById('fillTabs').innerHTML = '<tr><td>no open tabs found</td></tr>';
+        }
 
     });
 
@@ -119,7 +125,16 @@ $(function () {
 
             });
 
-            document.getElementById('openTabs').innerHTML = projectText;
+            if(projectText){
+                document.getElementById('openTabs').innerHTML = projectText;
+            }
+            else{
+                document.getElementById('openTabs').innerHTML = '<tr><td>no project found</td></tr>';
+            }
+
+        }
+        else{
+            document.getElementById('openTabs').innerHTML = '<tr><td>no project found</td></tr>';
         }
     });
 
