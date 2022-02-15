@@ -9,13 +9,15 @@ $(function () {
         let text = "";
 
         tabs.forEach(function (tab, index) {
-            tabsData.push({ title: tab.title, url: tab.url });
-            text += `<tr>
-                        <td class="tab-name">${tab.title}</td>
-                        <td>
-                            <input type="checkbox" class="form-check-input" id="${index}" checked> add
-                        </td>
-                    </tr>`
+            if(tab.title!="New Tab"){
+                tabsData.push({ title: tab.title, url: tab.url });
+                text += `<tr>
+                            <td class="tab-name">${tab.title}</td>
+                            <td>
+                                <input type="checkbox" class="form-check-input" id="${index}" checked> add
+                            </td>
+                        </tr>`
+            }
         });
         document.getElementById('fillTabs').innerHTML = text;
 
