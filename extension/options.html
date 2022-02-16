@@ -8,9 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Save Tabs Options</title>
 
-    <!-- options css -->
-    <link rel="stylesheet" href="options.css">
-
     <!-- jquery -->
     <script src="jquery-3.6.0.min.js"></script>
 
@@ -22,6 +19,9 @@
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- options css -->
+    <link rel="stylesheet" href="options.css">
 
 </head>
 
@@ -94,12 +94,12 @@
                 <!-- open project tab -->
                 <li class="nav-item" role="presentation">
                     <a class="nav-link" id="openproject-tab" data-bs-toggle="tab" data-bs-target="#openproject"
-                        aria-controls="openproject" aria-selected="false" href="#openproject" roll="tab">Tasks</a>
+                        aria-controls="openproject" aria-selected="false" href="#openproject" roll="tab">Notes</a>
                 </li>
                 <!-- delete project tab -->
                 <li class="nav-item" role="presentation">
                     <a class="nav-link" id="deleteproject-tab" data-bs-toggle="tab" data-bs-target="#deleteproject"
-                        aria-controls="deleteproject" aria-selected="false" href="#deleteproject" roll="tab">Delete
+                        aria-controls="deleteproject" aria-selected="false" href="#deleteproject" roll="tab">Deleted
                         Projects</a>
                 </li>
                 <!-- import data tab -->
@@ -167,22 +167,26 @@
                 </div>
                 <!-- import data tab content -->
                 <div class="tab-pane fade" id="importdata" role="tabpanel" aria-labelledby="importdata-tab">
-                    <div class="row mt-2">
-                        <h6>1. open options page, click on the choose file button on the top-left corner, select your
-                            json data file</h6>
-                    </div>
-                    <div class="row mt-2">
-                        <img src="screenshots/import.jpeg" alt="">
+                    <!-- import projects -->
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" id="importData2"
+                                    class="btn btn-secondary">Import</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- export data tab content -->
                 <div class="tab-pane fade" id="exportdata" role="tabpanel" aria-labelledby="exportdata-tab">
-                    <div class="row mt-2">
-                        <h6>1. open options page, click on Export button on the bottom-right corner, you will get one
-                            file with name savetabs.json</h6>
-                    </div>
-                    <div class="row mt-2">
-                        <img src="screenshots/export.jpeg" alt="">
+                    <!-- export projects -->
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" id="exportData2"
+                                    class="btn btn-secondary">Export</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

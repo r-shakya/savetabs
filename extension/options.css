@@ -8,6 +8,10 @@
     overflow-y: scroll;
 }
 
+.taskBody{
+    height: 400px;
+}
+
 .project-name {
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -33,4 +37,8 @@
 
 #importBox{
     display: none;
+}
+
+textarea { 
+    height:100%;
 }

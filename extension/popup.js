@@ -53,6 +53,7 @@ $(function () {
             }
 
             addData.tasks = [];
+            addData.notes = "";
 
             projectsData.push(addData);
 
