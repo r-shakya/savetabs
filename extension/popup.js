@@ -52,6 +52,8 @@ $(function () {
                 projectData: dataToBeSaved
             }
 
+            addData.tasks = [];
+
             projectsData.push(addData);
 
             if (data.savetabs) {

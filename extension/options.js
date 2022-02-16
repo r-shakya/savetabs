@@ -84,6 +84,62 @@ $(function () {
 
             document.getElementById('fillProjects').innerHTML = text;
 
+            let TasksText = "";
+
+            projectsData.forEach(function (project, index) {
+
+                TasksText += `<div class="col-auto card mx-2 my-3" id="project">
+                            <form id="task-${index}" action="" method="POST">
+                            <div class="row mt-3">
+                                <div class="col-6">
+                                    <h3 class="project-name">${project.projectName}</h3>
+                                </div>
+                                <div class="col-6">
+                                    <select class="form-select" aria-label="Default select example" id="fillTasksCategory">
+                                        <option value="1">opened</option>
+                                        <option value="2">closed</option>
+                                </select>
+                                </div>
+                            </div>
+                            <div class="projectBody row">
+                                <div class="col">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Tasks</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            `
+                project.tasks.forEach(function (task, i) {
+                    TasksText += `<tr>
+                                                    <td class="tab-name">${task.text}</td>
+                                                    <td>
+                                                        <input type="checkbox" class="form-check-input submit-buttons" name="${i}" id="${project.projectName + "-task-" + i}">
+                                                    </td>
+                                                </tr>`
+                });
+                TasksText += `</tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row mb-3" id="projectBottom">
+                                <hr>
+                                <div class="col-9">
+                                    <input type="text" class="form-control" id="newTask" name="newTask" placeholder="Add task">
+                                </div>
+                                <div class="col-3">
+                                    <input type="submit" class="btn btn-primary submit-buttons" name="role" value="add" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>`
+
+            });
+
+            document.getElementById('fillTasks').innerHTML = TasksText;
+
         }
         else{
             document.getElementById("importBox").style.display = "block";
@@ -221,6 +277,129 @@ $(function () {
 
                                 }
                             });
+                        });
+
+                    }
+                    else if (role == "open") {
+
+                        var tabsToBeOpen = [];
+
+                        inputsData.forEach(function (obj, idx) {
+                            if (obj.name != "tabUrl") {
+                                var i = parseInt(obj.name);
+                                tabsToBeOpen.push(project.projectData[i]);
+                            }
+                        });
+
+                        chrome.windows.create({}, function (wdata) {
+
+                            tabsToBeOpen.forEach(function (tab, index1) {
+
+                                chrome.tabs.create({ windowId: wdata.id, url: tab.url, index: 0 }, function (data) {
+
+                                });
+
+                            });
+
+                        });
+
+                    }
+                    else if (role == "save") {
+
+                        var tabsToBeSave = [];
+
+                        inputsData.forEach(function (obj, idx) {
+                            if (obj.name != "tabUrl") {
+                                var i = parseInt(obj.name);
+                                tabsToBeSave.push(project.projectData[i]);
+                            }
+                        });
+
+                        chrome.storage.local.get(['savetabs'], function (data2) {
+
+                            if (data2.savetabs) {
+
+                                var jsonData2 = JSON.parse(data2.savetabs);
+                                jsonData2[index].projectData = tabsToBeSave;
+
+                                chrome.storage.local.set({ 'savetabs': JSON.stringify(jsonData2) }, function () {
+
+                                    var error = chrome.runtime.lastError;
+
+                                    if (error) {
+                                        alert(error.message);
+                                    }
+
+                                    else {
+                                        var notifOptions = {
+                                            type: 'basic',
+                                            iconUrl: 'icons/icon48.png',
+                                            title: project.projectName + " changed!",
+                                            message: project.projectName + " tabs saved successfully!"
+                                        }
+
+                                        chrome.notifications.create('limitNotification', notifOptions);
+
+                                        window.location.reload();
+                                    }
+
+                                });
+                            }
+
+                        });
+                    }
+                });
+
+
+                $("#task-" + index).submit(function (e) {
+
+                    e.preventDefault();
+
+                    var inputsData = $(this).serializeArray();
+
+                    // Get the submit button element
+                    var btn = $(this).find("input[type=submit]:focus");
+                    var role = btn[0].value;
+
+                    if (role == "add") {
+
+                        var taskToBeAdded = "";
+
+                        inputsData.forEach(function (obj, idx) {
+                            if (obj.name == "newTask") {
+                                taskToBeAdded = obj.value;
+                            }
+                        });
+
+                        chrome.storage.local.get('savetabs', function (data1) {
+
+                            if (data1.savetabs) {
+
+                                var jsonData1 = JSON.parse(data1.savetabs);
+
+                                //can be done in one line, if we have project index
+                                jsonData1.forEach(function (pro, id) {
+                                    if (pro.projectName == project.projectName) {
+                                        pro.tasks.push({ text: taskToBeAdded });
+                                    }
+                                });
+
+                                //save the updated data
+                                chrome.storage.local.set({ 'savetabs': JSON.stringify(jsonData1) }, function () {
+
+                                    var notifOptions = {
+                                        type: 'basic',
+                                        iconUrl: 'icons/icon48.png',
+                                        title: "task added!",
+                                        message: taskToBeAdded + " added successfully!"
+                                    }
+
+                                    chrome.notifications.create('limitNotification', notifOptions);
+
+                                    window.location.reload();
+
+                                });
+                            }
                         });
 
                     }

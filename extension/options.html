@@ -31,13 +31,15 @@
     <div class="container">
         <div class="row my-4">
             <div class="col-md-4 position-relative">
-                <input class="position-absolute top-50 start-0 translate-middle-y" id="upload" type=file accept="text/json" name="files[]" size=30>
+                <input class="position-absolute top-50 start-0 translate-middle-y" id="upload" type=file
+                    accept="text/json" name="files[]" size=30>
             </div>
             <div class="col-md-4 text-center">
                 <h1>Projects</h1>
             </div>
             <div class="col-md-4">
-                <a href="help.html"><img class="submit-buttons" src="icons/help.png" height="50" width="50" alt="help"></a>
+                <a href="help.html"><img class="submit-buttons" src="icons/help.png" height="50" width="50"
+                        alt="help"></a>
             </div>
         </div>
     </div>
@@ -65,28 +67,131 @@
     </div>
 
     <!-- projects body -->
-    <div class="container my-3 card card-body">
+    <!-- <div class="container my-3 card card-body">
 
-        <!-- import projects -->
-        <div class="container" id="importBox">
-            <div class="row alert alert-warning" role="alert">
-                <div class="col-9">
-                    Note: if you have downloaded your projects data before, you can import that, from here
-                </div>
-                <div class="col-3">
-                    <button type="button" id="importData" class="btn btn-secondary submit-buttons">Import</button>
-                </div>
+
+
+    </div> -->
+
+
+    <!-- heading -->
+    <div class="container">
+
+        <!-- <div class="row my-4">
+            <div class="col text-center">
+                <h1>Save Tabs</h1>
             </div>
-        </div>
+        </div> -->
 
-        <!-- show all projects -->
-        <div class="row" id="fillProjects">
-
+        <!-- tabs -->
+        <div class="row">
+            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                <!-- save project tab -->
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="saveproject-tab" data-bs-toggle="tab" data-bs-target="#saveproject"
+                        aria-controls="saveproject" aria-selected="true" href="#saveproject" roll="tab">Tabs</a>
+                </li>
+                <!-- open project tab -->
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="openproject-tab" data-bs-toggle="tab" data-bs-target="#openproject"
+                        aria-controls="openproject" aria-selected="false" href="#openproject" roll="tab">Tasks</a>
+                </li>
+                <!-- delete project tab -->
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="deleteproject-tab" data-bs-toggle="tab" data-bs-target="#deleteproject"
+                        aria-controls="deleteproject" aria-selected="false" href="#deleteproject" roll="tab">Delete
+                        Projects</a>
+                </li>
+                <!-- import data tab -->
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="importdata-tab" data-bs-toggle="tab" data-bs-target="#importdata"
+                        aria-controls="importdata" aria-selected="false" href="#importdata" roll="tab">Import Data</a>
+                </li>
+                <!-- export data tab -->
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="exportdata-tab" data-bs-toggle="tab" data-bs-target="#exportdata"
+                        aria-controls="exportdata" aria-selected="false" href="#exportdata" roll="tab">Export Data</a>
+                </li>
+            </ul>
         </div>
 
     </div>
 
-    <div class="container" id="exportWarning">
+    <!-- projects body -->
+    <div class="container card card-body">
+        <!-- tabs data -->
+        <div class="row mx-2">
+            <div class="tab-content" id="myTabContent">
+                <!-- save project tab content -->
+                <div class="tab-pane fade show active" id="saveproject" role="tabpanel"
+                    aria-labelledby="saveproject-tab">
+
+                    <!-- import projects -->
+                    <div class="container" id="importBox">
+                        <div class="row alert alert-warning" role="alert">
+                            <div class="col-9">
+                                Note: if you have downloaded your projects data before, you can import that, from here
+                            </div>
+                            <div class="col-3">
+                                <button type="button" id="importData"
+                                    class="btn btn-secondary submit-buttons">Import</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- show all projects -->
+                    <div class="row" id="fillProjects">
+
+                    </div>
+
+                </div>
+                <!-- open project tab content -->
+                <div class="tab-pane fade" id="openproject" role="tabpanel" aria-labelledby="openproject-tab">
+
+                    <!-- show all projects -->
+                    <div class="row" id="fillTasks">
+
+                    </div>
+
+                </div>
+                <!-- delete project tab content -->
+                <div class="tab-pane fade" id="deleteproject" role="tabpanel" aria-labelledby="deleteproject-tab">
+
+                    <div class="row mt-2">
+                        <h6>1. open popup page, select the projects you want to delete, and click on delete button</h6>
+                    </div>
+                    <div class="row mt-2">
+                        <img src="screenshots/delete.jpeg" alt="">
+                    </div>
+
+                </div>
+                <!-- import data tab content -->
+                <div class="tab-pane fade" id="importdata" role="tabpanel" aria-labelledby="importdata-tab">
+                    <div class="row mt-2">
+                        <h6>1. open options page, click on the choose file button on the top-left corner, select your
+                            json data file</h6>
+                    </div>
+                    <div class="row mt-2">
+                        <img src="screenshots/import.jpeg" alt="">
+                    </div>
+                </div>
+                <!-- export data tab content -->
+                <div class="tab-pane fade" id="exportdata" role="tabpanel" aria-labelledby="exportdata-tab">
+                    <div class="row mt-2">
+                        <h6>1. open options page, click on Export button on the bottom-right corner, you will get one
+                            file with name savetabs.json</h6>
+                    </div>
+                    <div class="row mt-2">
+                        <img src="screenshots/export.jpeg" alt="">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- export projects -->
+    <div class="container mt-3" id="exportWarning">
         <div class="row alert alert-warning" role="alert">
             <div class="col-9">
                 Note: before removing this extension, if you want you can download, your data in json format, by
