@@ -165,26 +165,93 @@
                     </div>
 
                 </div>
+
                 <!-- import data tab content -->
                 <div class="tab-pane fade" id="importdata" role="tabpanel" aria-labelledby="importdata-tab">
                     <!-- import projects -->
                     <div class="container">
                         <div class="row">
-                            <div class="col">
-                                <button type="button" id="importData2"
-                                    class="btn btn-secondary">Import</button>
+                            <div class="col-md-4 position-relative">
+                                <input class="position-absolute top-50 start-0 translate-middle-y" id="upload2" type=file
+                                    accept="text/json" name="files[]" size=30>
+                            </div>
+                            <div class="col-md-8">
+                                <button type="button" id="importData2" class="btn btn-secondary">Import</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container" id="importProjectsBox">
+                        <div class="row">
+                            <div class="col-auto card mx-2 my-3" id="project">
+                                <form id="importProjects" action="" method="POST">
+                                    <div class="row mt-3">
+                                        <div class="col">
+                                            <h3 class="project-name">Import Projects</h3>
+                                        </div>
+                                    </div>
+                                    <div class="projectBody row">
+                                        <div class="col">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Projects</th>
+                                                        <th scope="col">Export</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="fillProjectsToImport">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3" id="projectBottom">
+                                        <hr>
+                                        <div class="col d-grid gap-2">
+                                            <input type="submit" class="btn btn-secondary" name="role"
+                                                value="Add Projects" />
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <!-- export data tab content -->
                 <div class="tab-pane fade" id="exportdata" role="tabpanel" aria-labelledby="exportdata-tab">
                     <!-- export projects -->
                     <div class="container">
+                        <!-- show all projects to export -->
                         <div class="row">
-                            <div class="col">
-                                <button type="button" id="exportData2"
-                                    class="btn btn-secondary">Export</button>
+                            <div class="col-auto card mx-2 my-3" id="project">
+                                <form id="exportProjects" action="" method="POST">
+                                    <div class="row mt-3">
+                                        <div class="col">
+                                            <h3 class="project-name">Export Projects</h3>
+                                        </div>
+                                    </div>
+                                    <div class="projectBody row">
+                                        <div class="col">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Projects</th>
+                                                        <th scope="col">Export</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="fillProjectsToExport">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3" id="projectBottom">
+                                        <hr>
+                                        <div class="col d-grid gap-2">
+                                            <input type="submit" id="exportData2" class="btn btn-secondary" name="role"
+                                                value="Export" />
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

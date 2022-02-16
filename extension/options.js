@@ -112,6 +112,29 @@ $(function () {
             });
 
             document.getElementById('fillTasks').innerHTML = TasksText;
+            
+            //export projects functionality
+            let projectsToExport = "";
+            projectsData.forEach(function (project, i) {
+                projectsToExport += `<tr>
+                                        <td class="tab-name">${project.projectName}</td>
+                                        <td>
+                                            <input type="checkbox" class="form-check-input submit-buttons" name="${i}" id="${project.projectName + "-tab-" + i}" checked>
+                                        </td>
+                                    </tr>`
+            });
+            document.getElementById('fillProjectsToExport').innerHTML = projectsToExport;
+
+            // let projectsToImport = "";
+            // projectsData.forEach(function (project, i) {
+            //     projectsToImport += `<tr>
+            //                             <td class="tab-name">${project.projectName}</td>
+            //                             <td>
+            //                                 <input type="checkbox" class="form-check-input submit-buttons" name="${i}" id="${project.projectName + "-tab-" + i}" checked>
+            //                             </td>
+            //                         </tr>`
+            // });
+            // document.getElementById('fillProjectsToImport').innerHTML = projectsToImport;
 
         }
         else{
@@ -426,6 +449,105 @@ $(function () {
             return function (e) {
                 var data1 = e.target.result;
                 var jsonData1 = JSON.parse(data1);
+
+                chrome.storage.local.get(['savetabs'], function (data2) {
+
+                    if (data2.savetabs) {
+
+                        var jsonData2 = JSON.parse(data2.savetabs);
+                        var dataToBeSaved = jsonData2.concat(jsonData1);
+
+                        chrome.storage.local.set({ 'savetabs': JSON.stringify(dataToBeSaved) }, function () {
+
+                            var error = chrome.runtime.lastError;
+
+                            if (error) {
+                                alert(error.message);
+                            }
+
+                            else {
+                                var notifOptions = {
+                                    type: 'basic',
+                                    iconUrl: 'icons/icon48.png',
+                                    title: f.name + " imported!",
+                                    message: "projects imported successfully!"
+                                }
+
+                                chrome.notifications.create('limitNotification', notifOptions);
+                            }
+
+                        });
+                    }
+                    else{
+
+                        chrome.storage.local.set({ 'savetabs': JSON.stringify(jsonData1) }, function () {
+
+                            var error = chrome.runtime.lastError;
+
+                            if (error) {
+                                alert(error.message);
+                            }
+
+                            else {
+                                var notifOptions = {
+                                    type: 'basic',
+                                    iconUrl: 'icons/icon48.png',
+                                    title: f.name + " imported!",
+                                    message: "projects imported successfully!"
+                                }
+
+                                chrome.notifications.create('limitNotification', notifOptions);
+                            }
+
+                        });
+                    }
+
+                    window.location.reload();
+
+                });
+            };
+        })(f);
+
+        // Read in the image file as a data URL.
+        reader.readAsText(f);
+    }
+
+    $('#importData2').click(function () {
+        document.getElementById('upload2').click();
+    });
+
+    document.getElementById('upload2').addEventListener('change', handleFileSelect2, false);
+
+    function handleFileSelect2(e) {
+
+        // FileList object
+        let files = e.target.files;
+
+        // use the 1st file from the list
+        let f = files[0];
+
+        // make file reader object
+        let reader = new FileReader();
+
+        // Closure to capture the file information.
+        reader.onload = (function (theFile) {
+            return function (e) {
+                var data1 = e.target.result;
+                var jsonData1 = JSON.parse(data1);
+
+                let projectsToImport = "";
+                jsonData1.forEach(function (project, i) {
+                    projectsToImport += `<tr>
+                                            <td class="tab-name">${project.projectName}</td>
+                                            <td>
+                                                <input type="checkbox" class="form-check-input submit-buttons" name="${i}" id="${project.projectName + "-tab-" + i}" checked>
+                                            </td>
+                                        </tr>`
+                });
+                document.getElementById('fillProjectsToImport').innerHTML = projectsToImport;
+                document.getElementById("importProjectsBox").style.display = "block";
+                return;
+                //document.getElementById("importBox").style.display = "none";
 
                 chrome.storage.local.get(['savetabs'], function (data2) {
 
