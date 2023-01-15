@@ -21,7 +21,7 @@ $(function () {
 
                 projectText += `<option value="${index}">${project.projectName}</option>`
 
-                text += `<div class="col-auto card mx-2 my-3" id="project">
+                text += `<div class="col-auto card mx-4 my-3" id="project">
                             <form id="project-${index}" action="" method="POST">
                             <div class="row mt-3">
                                 <div class="col-6">
